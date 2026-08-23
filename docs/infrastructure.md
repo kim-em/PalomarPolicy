@@ -1,6 +1,6 @@
 # Palomar infrastructure
 
-Last reconciled against the live services on 2026-08-11.
+Last reconciled against the live services on 2026-08-23.
 
 This is the durable record of where Palomar runs, so that changing a host or
 credential is a checklist rather than an excavation. The private canonical
@@ -16,10 +16,16 @@ restore a direct raw-GitHub or GitHub Pages fallback for database data.
 | Archive identity | GitHub user [`PalomarArchivist`](https://github.com/PalomarArchivist) | Dedicated 2FA-protected ordinary member of `PalomarArchive`, never an organization owner or a member of `PalomarRegistry`. |
 | Metadata-repair forks | GitHub organization [`PalomarRepairs`](https://github.com/PalomarRepairs) | Created 2026-08-11. Public native forks used only to propose `formalization.yaml` repairs back to submitter-owned repositories. GitHub Actions is disabled throughout the organization, public repository creation is allowed, and private repository creation is disabled. |
 | Repair identity | GitHub user [`palomar-repair`](https://github.com/palomar-repair) | Created 2026-08-11. Dedicated 2FA-protected ordinary member of `PalomarRepairs`, never an organization owner or a member of `PalomarRegistry`. |
-| Domains | `palomar-registry.org` and `palomarregistry.org`, both at Cloudflare Registrar | Registrar and DNS are in the same Cloudflare account. |
-| DNS, Workers, and R2 | Cloudflare account `d789bf36d237e0cb313be59b927c82bd` | Zones `f05ebb1809990a5d27e6d6a7d0d1ae85` for `palomar-registry.org` and `feea63b2ced3571a5ab5ce4ba516067f` for `palomarregistry.org`; nameservers `joyce`/`matias.ns.cloudflare.com`. |
+| Domains | `palomar-registry.org` and `palomarregistry.org`, both at Cloudflare Registrar | Registrar and DNS belong in the dedicated Palomar account. An inter-account Registrar move must be accepted in the dashboard. |
+| DNS, Workers, and R2 | Cloudflare account `palomar` (`8e4d5f3bbdd2c4ab2b373721842acf9f`) | All Palomar zones, Workers and buckets belong here. Resource-specific zone ids and nameservers must be recorded after the inter-account transfer creates the destination zones. |
 | Website hosting | GitHub Pages, repository `PalomarWeb` | The website is static; its registry content is fetched at runtime from the public data Worker. |
 | Public registry storage | Private R2 bucket `palomar-public-data` | Contains the generated, active-only projection: records at keys that never change, and the aggregates under the release that wrote them. The bucket itself is not public. |
+
+The older personal account `d789bf36d237e0cb313be59b927c82bd` is only a
+temporary source during the 2026 account separation. It is not an acceptable
+deployment target. R2 must first be enabled in the dedicated account; resources
+may remain in the old account until the copy, verification, route transfer and
+credential rotation are complete.
 
 The old `kim-em/Palomar*` repository names must stay reserved forever.
 Recreating a repository at an old name destroys that name's GitHub redirect.
