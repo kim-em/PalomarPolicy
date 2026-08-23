@@ -30,6 +30,13 @@ verification-only target for this migration.
    variable, not a secret, in PalomarServer, PalomarDatabaseTools' `production`
    environment and PalomarDatabase. Do not rotate the R2 publisher/cache keys
    yet.
+6. Before requesting any inter-account Registrar move, add each domain as a
+   website in its destination account and select the Free plan. Cloudflare
+   moves only the registration and WHOIS contacts: it discards the source
+   zone's DNS and configuration. Disable DNSSEC in the source and destination,
+   import ordinary DNS records, copy editable zone settings and rules, and
+   pre-attach every Worker route or custom domain that Cloudflare permits on a
+   pending zone. Keep a source export for the post-move comparison.
 
 Record pre-migration object counts and sizes, Worker version ids, routes, DNS,
 email routes, redirect/cache rules and bucket public-host settings. Export the
@@ -83,15 +90,19 @@ unprivileged read build before deleting the source bucket.
    each record; the new pepper nevertheless makes the old raw links unusable.
 3. Make and verify the final public-data bucket copy. Install the new pepper,
    OAuth secret and GitHub runtime token in the destination Worker.
-4. In Cloudflare Registrar, click **Start move** for
+4. Confirm the three destination zones are pending with their DNS, Worker
+   routes/custom domains, redirect/cache rules and SSL settings already
+   populated. In Cloudflare Registrar, click **Start move** for
    `palomar-registry.org`, `palomarregistry.org` and `taucetiproject.org`; then
    click **Accept** in each destination account. These six dashboard actions
-   cannot be performed by Wrangler or the API. Reconcile every new zone's DNS,
-   Email Routing, redirect/cache rules and SSL settings against the export.
-5. Attach Worker routes and custom domains in the destination accounts. Switch
-   Palomar R2 publisher credentials and the public-data Worker binding. Confirm
-   the website, data endpoint, submit endpoint, defensive redirects, mail route
-   and TauCeti cache domain.
+   cannot be performed by Wrangler or the API.
+5. As soon as each destination zone becomes active, attach anything Cloudflare
+   refuses on a pending zone. In this migration that is TauCeti's R2 custom
+   domain and Palomar Email Routing. Recreate the verified destination address
+   and `privacy@palomar-registry.org` forwarding rule, then compare DNS, zone
+   settings and rules with the source export. Switch Palomar R2 publisher
+   credentials and confirm the website, data endpoint, submit endpoint,
+   defensive redirects, mail route and TauCeti cache domain.
 6. Deploy PalomarServer with `PALOMAR_WRITES_PAUSED` set to `false`. Recover at
    least one pre-migration open submission through GitHub identity, submit a
    controlled test and verify the scheduled handler completes.
