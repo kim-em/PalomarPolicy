@@ -1027,7 +1027,12 @@ render, preservation, and trust evidence, and receives a new automated review
 of the corrected effective metadata. The public record identifies the
 inherited evidence, lists the exact fields changed, and gives a required public
 plain-text explanation under the attribution “Palomar / Registry correction”.
-The operator's account remains private.
+The operator's account remains private. Technical Maintainer authority may be
+established either by the protected browser sign-in or by the agent protocol:
+a fresh secret GitHub gist binds the intake challenge to its GitHub-set owner,
+whose numeric account id must be in Palomar's current Technical Maintainer
+allowlist. The agent protocol neither requires nor treats write access to the
+formalization repository as correction authority.
 
 A maintainer correction is an exceptional registry housekeeping act. It does
 not state or imply that Palomar, its maintainers, or the project authors

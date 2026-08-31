@@ -24,7 +24,7 @@ correction` will be permanently visible in the entry's version history. Write
 the explanation for readers outside the maintainer team. The individual
 operator's GitHub identity remains in private operational state.
 
-## Create the correction
+## Create the correction in the dashboard
 
 1. Open the [Palomar Technical Maintainer dashboard](https://submit.palomar-registry.org/dashboard).
 2. Sign in to GitHub with an account whose numeric ID is in Palomar's current
@@ -44,12 +44,47 @@ operator's GitHub identity remains in private operational state.
    Palomar checks Technical Maintainer membership again before admitting the
    correction.
 8. Save the resulting private status URL. Follow it until the metadata review
-   and registration finish, and address any reported validation problem there.
+   is ready, inspect that review, and make the separate registration decision.
+   Then follow registration to completion and address any reported validation
+   problem there.
 
 Palomar computes the changed-field list rather than trusting the browser. It
 also rejects a stale correction if another version became active after the
 editor loaded, and rejects any change to the repository, commit, or registered
 paths.
+
+## Create the correction with an agent
+
+An agent may use the HTTPS intake when its authenticated `gh` account is an
+active Technical Maintainer. This is an alternative identity proof for the
+same correction contract, not an ordinary submission and not a way around the
+metadata or baseline checks.
+
+1. Have the agent read the live
+   [`llms.txt`](https://submit.palomar-registry.org/llms.txt), including its
+   **A Technical Maintainer may make a Registry correction through the API**
+   section. Do not ask it to automate the browser sign-in.
+2. Have it load the highest active entry from the public Registry data and
+   prepare the complete corrected metadata plus the public explanation.
+3. Inspect the exact baseline version, every proposed metadata value, and the
+   explanation. Explicitly approve that proposal before the agent calls
+   `/api/submit`; validation makes the proposal public even if it is later
+   withdrawn.
+4. The agent posts the correction with the `palomar-maintainer` relationship,
+   then creates the fresh secret challenge gist described in `llms.txt`. No
+   source-repository tag is required or useful for this route.
+5. Palomar reads the gist's GitHub-set owner and admits the correction only if
+   that numeric account id is in the current Technical Maintainer allowlist.
+   Delete the gist as soon as verification answers.
+6. Save the returned access token or private status URL. Follow it through
+   review, inspect the review, and make the separate registration decision as
+   described in `llms.txt`.
+
+The agent proof records `technical-team-correction` with active Technical
+Maintainer membership. It does not claim source-repository write access,
+project approval, authorship, or endorsement. The individual gist owner's
+identity remains in private operational state just as it does for dashboard
+sign-in.
 
 ## After registration
 
@@ -71,6 +106,9 @@ registration history remains append-only.
 - **The dashboard refuses sign-in:** confirm that you used the GitHub account
   recorded in the Technical Maintainer allowlist. Ask another maintainer to
   review the allowlist if the account changed.
+- **The agent's gist is refused:** confirm that `gh api user --jq '{login,id}'`
+  reports the intended allowlisted account, that the gist is secret and newly
+  created for this intake, and that its file contains the exact challenge.
 - **The editor says the correction is stale:** reload the entry in the editor
   and redo the correction against the newly active version.
 - **A repository, SHA, or path needs changing:** use the ordinary project
@@ -83,4 +121,3 @@ registration history remains append-only.
 
 The normative policy is
 [section 9.1 of `CONTRIBUTING.md`](../CONTRIBUTING.md#91-exceptional-registry-metadata-corrections).
-
