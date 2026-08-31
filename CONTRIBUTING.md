@@ -1010,3 +1010,31 @@ repository and declares that they are a responsible author or maintainer of the
 substantive formalisation, or have approval from one. The declaration is the
 authorisation basis; optional evidence may document approval, while repository
 write access alone is deliberately not treated as authorship or approval.
+
+### 9.1 Exceptional registry metadata corrections
+
+In exceptional circumstances, a Palomar Technical Maintainer may correct
+public descriptive metadata by appending a new, visibly labelled version. This
+route is for registry mistakes or materially inaccurate metadata, not for
+changing the formalization under review. It may change only the title,
+abstract, authors, arXiv or MSC2020 classification, responsible maintainers,
+mathematical sources, or related formalizations.
+
+Such a correction must retain the exact repository, source commit, selected
+project path, `formalization.yaml` path, and Comparator configuration path of
+the current active version. It reuses that version's mechanical verification,
+render, preservation, and trust evidence, and receives a new automated review
+of the corrected effective metadata. The public record identifies the
+inherited evidence, lists the exact fields changed, and gives a required public
+plain-text explanation under the attribution “Palomar / Registry correction”.
+The operator's account remains private.
+
+A maintainer correction is an exceptional registry housekeeping act. It does
+not state or imply that Palomar, its maintainers, or the project authors
+approve, endorse, or take authorship of the formalization. Earlier versions
+remain immutable and citable.
+
+Technical Maintainers follow the
+[Registry correction runbook](docs/maintainer-corrections.md), which identifies
+the protected production entry point, the required checks, and the public
+post-registration verification.
