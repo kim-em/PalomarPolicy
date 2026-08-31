@@ -151,6 +151,11 @@ not replace editorial assessment of the facts' accuracy or the citations'
 adequacy.
 `automation.methods` remains required by the adopted upstream format, including
 `method: manual`; `review.status` describes review performed before submission.
+The schema can establish only that author and responsible-maintainer names are
+nonempty. The metadata review supplies the semantic gate: those two identity
+fields are reserved for humans, and naming an automated system in either
+requires correction before registration. AI contributions remain reportable in
+automation metadata and narrative provenance.
 
 Challenge and Solution must be distinct module names. Palomar asks Lake for its
 ordered source paths and selects the first matching regular, non-symlink file

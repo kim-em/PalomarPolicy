@@ -402,6 +402,15 @@ wall time, and prompt logs are useful when available but are not required to be
 reconstructed after the fact. A concise structured disclosure may point to a
 fuller account in a document at the reviewed repository commit.
 
+Palomar reserves `project.authors` and `project.responsible_maintainers` for
+humans; do not list an AI model, agent, system, session, or tool in either
+field. Credit material AI contributions in `automation.methods` and the
+narrative production account instead. This follows the
+[Leiden Declaration's human-authorship principle][leiden-human-authorship]:
+credit and responsibility remain with people even when automated systems make
+substantive contributions. Because names cannot be classified reliably by a
+schema, the metadata review enforces this rule editorially.
+
 #### Mechanical requirements
 
 These fields are hard mechanical requirements:
@@ -413,7 +422,8 @@ These fields are hard mechanical requirements:
   whole;
 - `project.authors`: a nonempty list of nonempty name strings. Palomar still
   reads the former mapping form for compatibility, but new metadata should use
-  the v0.4 string form;
+  the v0.4 string form. Every listed author must satisfy the human-only rule
+  above;
 - `project.license`: the exact SPDX identifier detected from the root licence
   file;
 - `classification.arxiv`: one to eight distinct codes from Palomar's checked-in
@@ -453,7 +463,8 @@ Mechanical verification requires this current shape:
 
 - `project.responsible_maintainers`: a nonempty list of nonempty name strings.
   Palomar still reads the former mapping form for compatibility, but new
-  metadata should use the v0.4 string form. For a thin wrapper these are people
+  metadata should use the v0.4 string form. Every listed maintainer must satisfy
+  the human-only rule above. For a thin wrapper these are people
   responsible for the submitted wrapper; the submission's authorisation
   relationship separately covers the underlying substantive formalisation. The older singular alias is
   accepted only as the compatibility fallback described above;
@@ -622,6 +633,7 @@ important assumptions and computational components. The reviewer compares it
 with the Solution source; a plausible proof of the same theorem is not enough.
 
 [submission-repo]: https://github.com/PalomarRegistry/PalomarSubmission
+[leiden-human-authorship]: https://leidendeclaration.ai/#human-authorship
 
 ## 4. Confirm that you are authorised to submit
 

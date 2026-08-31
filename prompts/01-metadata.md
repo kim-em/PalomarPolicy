@@ -30,8 +30,17 @@ not occur.
 
 Keep contribution roles distinct: bibliographic authorship, mathematical
 discovery, formalization, verification, and communication may have different
-credits. Report a contradiction only when the same role is attributed
-incompatibly or the roles are materially unclear.
+credits. Palomar nevertheless reserves `project.authors` and
+`project.responsible_maintainers` (including their compatibility aliases) for
+humans. If an AI model, automated agent, system, session, or tool is named as an
+author or responsible maintainer, create an error finding and use a `failure`
+outcome. The correction must remove it from those identity fields, which must
+name only the responsible human authors or maintainers, while retaining
+accurate AI credit in `automation.methods` and the narrative contribution
+account. Do not infer a violation merely from disclosed AI use, AI credit in
+another contribution role, or an automated system named as a reviewer or source
+author. Otherwise, report an attribution contradiction only when the same role
+is attributed incompatibly or the roles are materially unclear.
 
 For a thin wrapper, check that the substantive formalization is pinned at an
 immutable revision. Responsible maintainers may describe the submitted wrapper

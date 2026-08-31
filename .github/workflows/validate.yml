@@ -247,6 +247,20 @@ jobs:
           }
           assert description_coverage_steps == set()
 
+          metadata_prompt = " ".join(
+              (root / "prompts" / "01-metadata.md").read_text().split()
+          )
+          for required_text in (
+              "`project.authors`",
+              "`project.responsible_maintainers`",
+              "AI model, automated agent, system, session, or tool",
+              "use a `failure` outcome",
+              "retaining accurate AI credit in `automation.methods`",
+          ):
+              assert required_text in metadata_prompt, (
+                  f"metadata prompt lost the human-identity rule: {required_text}"
+              )
+
           cases = json.loads((root / "tests" / "materiality-cases.json").read_text())
           assert len(cases) >= 8
           assert len({case["id"] for case in cases}) == len(cases)
@@ -260,6 +274,9 @@ jobs:
               "misleading-registry-abstract": "finding",
               "unconditional-with-domain-conditions": "internal_note",
               "distinct-contribution-roles": "internal_note",
+              "ai-named-as-project-author": "finding",
+              "ai-named-as-responsible-maintainer": "finding",
+              "ai-contribution-disclosed-outside-identity-fields": "internal_note",
               "same-role-attribution-conflict": "finding",
               "cited-source-literature-context": "internal_note",
               "reviewer-cannot-access-cited-source": "internal_note",

@@ -46,8 +46,14 @@ materially narrows the claimed result.
 
 Keep contribution roles distinct: bibliographic authorship, mathematical
 discovery, formalization, verification, and communication may have different
-credits. Report a contradiction only when the same role is attributed
-incompatibly or the roles are materially unclear.
+credits. Automated systems may be credited for those contribution roles, but
+Palomar reserves `project.authors` and `project.responsible_maintainers` for
+humans who can hold credit and responsibility. Naming an AI model, automated
+agent, system, session, or tool in either identity field is a material finding;
+accurately disclosing the same system in automation metadata, narrative credit,
+source attribution, or review metadata is not. Otherwise, report a
+contradiction only when the same role is attributed incompatibly or the roles
+are materially unclear.
 
 An inspectable cited source may supply literature context; do not require that
 context to be duplicated in repository prose.
