@@ -105,6 +105,27 @@
     "reason": "Different contribution roles may legitimately have different credits."
   },
   {
+    "id": "ai-named-as-project-author",
+    "area": "metadata",
+    "scenario": "An automated theorem-proving agent is listed as a member of project.authors alongside a human collaborator.",
+    "expected": "finding",
+    "reason": "Palomar reserves the author identity field for humans; the agent should instead be credited in automation metadata and the narrative contribution account."
+  },
+  {
+    "id": "ai-named-as-responsible-maintainer",
+    "area": "metadata",
+    "scenario": "A model or agent session is listed in project.responsible_maintainers.",
+    "expected": "finding",
+    "reason": "An automated system cannot hold the human responsibility represented by Palomar's maintainer field."
+  },
+  {
+    "id": "ai-contribution-disclosed-outside-identity-fields",
+    "area": "metadata",
+    "scenario": "Human authors and maintainers are named, while a materially involved AI system is credited in automation metadata and the narrative production account.",
+    "expected": "internal_note",
+    "reason": "Transparent AI contribution credit is required and does not make the system an author or maintainer."
+  },
+  {
     "id": "same-role-attribution-conflict",
     "area": "topology",
     "scenario": "Two public records incompatibly identify who performed the same contribution role.",
