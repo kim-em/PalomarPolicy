@@ -292,6 +292,14 @@ preservation, and trust evidence, and records a new review against the corrected
 effective metadata. This correction is registry housekeeping, not approval or
 endorsement of the project.
 
+The protected browser path establishes Technical Maintainer membership from a
+GitHub OAuth identity. The agent path establishes the same authority from the
+GitHub-set owner of a fresh, secret, challenge-bearing gist. In either case the
+owner's numeric GitHub id must be in the checked-in Technical Maintainer
+allowlist. A correction does not require a source-repository tag or write
+access: its exact-baseline binding prevents the source or registered paths from
+moving, and repository capability is not the authority being asserted.
+
 The append-only guarantees below have been in force since 2026-08-10, when
 `.palomar-launched` was added to PalomarDatabase at the public-history boundary
 commit `7c2f0db8`. Every Database change after that commit is checked against
