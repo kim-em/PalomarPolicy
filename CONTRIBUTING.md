@@ -415,7 +415,8 @@ schema, the metadata review enforces this rule editorially.
 
 These fields are hard mechanical requirements:
 
-- `project.name`: a nonempty string;
+- `project.name`: a nonempty string of at most 300 characters. This is the
+  default public entry title; the source repository is shown separately;
 - `project.description`: a nonempty string of at most 10,000 characters. This
   is the exact abstract shown in the Registry and gives a concise account of
   the mathematical content and principal results of the formalization as a
