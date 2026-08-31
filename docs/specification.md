@@ -281,6 +281,17 @@ source repository, selected project path, and Comparator configuration path;
 repository transfers require operator review. A source commit already present
 in that identifier's version history cannot be registered again.
 
+The sole exception is an exceptional registry metadata correction authorized
+by an active Palomar Technical Maintainer. It appends a version at the exact
+current repository, commit, project path, metadata path, and Comparator path;
+ordinary duplicate-commit rejection is therefore intentionally replaced by an
+exact-baseline check. Only public descriptive metadata may change. The new
+record carries a public explanation and changed-field list, attributes the act
+to “Palomar / Registry correction”, inherits the baseline mechanical, render,
+preservation, and trust evidence, and records a new review against the corrected
+effective metadata. This correction is registry housekeeping, not approval or
+endorsement of the project.
+
 The append-only guarantees below have been in force since 2026-08-10, when
 `.palomar-launched` was added to PalomarDatabase at the public-history boundary
 commit `7c2f0db8`. Every Database change after that commit is checked against
