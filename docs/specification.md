@@ -2,8 +2,9 @@
 
 This document defines the current repository, review, registration, and
 publication contract. `CONTRIBUTING.md` is the submitter-facing standard;
-`rubric.json`, the files under `prompts/`, and
-`schemas/review.schema.json` are the machine-readable editorial contract;
+`rubric.json`, the files under `prompts/`, `schemas/review.schema.json`, and
+`schemas/registry-correction.schema.json` are the machine-readable editorial
+and correction-decision contracts;
 `taxonomies/classification-guide.md` supplies the binding interpretation for
 classification review. Every review records its exact PalomarPolicy commit, so
 later policy changes do not reinterpret an earlier outcome.
@@ -15,9 +16,9 @@ later policy changes do not reinterpret an earlier outcome.
 | `PalomarServer` | Intake, GitHub push-access check, private status access, withdrawal, and registration consent | Execute source, run editorial review, or write registry records |
 | `PalomarSubmission` | Public mechanical verification and registrable-Challenge rendering | Hold private identity or review state, or decide editorial policy |
 | `PalomarSubmissionState` | Private append-only submission state and scheduled orchestration | Publish unregistered review outcomes or define policy |
-| `PalomarPolicy` | Submission rules, rubric, prompts, and review schema | Hold submissions, registered records, or credentials |
+| `PalomarPolicy` | Submission rules, rubric, prompts, and review and correction-decision schemas | Hold submissions, registered records, or credentials |
 | `PalomarTemplate` | Reusable submission starter and CI example | Define binding policy or registry truth |
-| `PalomarReviewer` | Automated editorial review, evidence validation, source preservation, registration PR preparation, clean-check merge, and finalization | Change policy, register without consent, or treat model output as trusted instructions |
+| `PalomarReviewer` | Automated editorial review, deterministic correction decisions, evidence validation, source preservation, registration PR preparation, clean-check merge, and finalization | Change policy, register without consent, or treat model output as trusted instructions |
 | `PalomarDatabase` | Private canonical ledger, immutable record schemas, and filtered-publication tooling | Perform intake, execute source, or conduct review |
 | `PalomarArchive` | Public native forks and immutable record-specific preservation tags | Hold private submission data or credentials that can mutate `PalomarRegistry` |
 | `PalomarWeb` | Read-only human presentation of the public projection | Become another registry authority |
@@ -288,9 +289,10 @@ ordinary duplicate-commit rejection is therefore intentionally replaced by an
 exact-baseline check. Only public descriptive metadata may change. The new
 record carries a public explanation and changed-field list, attributes the act
 to “Palomar / Registry correction”, inherits the baseline mechanical, render,
-preservation, and trust evidence, and records a new review against the corrected
-effective metadata. This correction is registry housekeeping, not approval or
-endorsement of the project.
+preservation, trust, review, and score evidence, and records a deterministic
+correction decision rather than running a new model review. The maintainer
+consents to the exact correction decision before registration. This correction
+is registry housekeeping, not approval or endorsement of the project.
 
 The protected browser path establishes Technical Maintainer membership from a
 GitHub OAuth identity. The agent path establishes the same authority from the

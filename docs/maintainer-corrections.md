@@ -43,10 +43,12 @@ operator's GitHub identity remains in private operational state.
 7. Select **Validate correction**. Complete the GitHub identity check if asked.
    Palomar checks Technical Maintainer membership again before admitting the
    correction.
-8. Save the resulting private status URL. Follow it until the metadata review
-   is ready, inspect that review, and make the separate registration decision.
-   Then follow registration to completion and address any reported validation
-   problem there.
+8. Save the resulting private status URL. Follow it until the correction
+   decision is ready. Inspect the exact baseline and changed fields, note that
+   the baseline editorial review (including any warning) will be inherited
+   unchanged, and make the separate registration decision. Then follow
+   registration to completion and address any reported validation problem
+   there.
 
 Palomar computes the changed-field list rather than trusting the browser. It
 also rejects a stale correction if another version became active after the
@@ -77,8 +79,8 @@ metadata or baseline checks.
    that numeric account id is in the current Technical Maintainer allowlist.
    Delete the gist as soon as verification answers.
 6. Save the returned access token or private status URL. Follow it through
-   review, inspect the review, and make the separate registration decision as
-   described in `llms.txt`.
+   correction validation, inspect the deterministic correction decision, and
+   make the separate registration decision as described in `llms.txt`.
 
 The agent proof records `technical-team-correction` with active Technical
 Maintainer membership. It does not claim source-repository write access,
@@ -116,8 +118,8 @@ registration history remains append-only.
 - **The dashboard session expires while editing:** reopen the dashboard, sign
   in again, and reload the entry. Keep a copy of a long explanation before
   refreshing.
-- **Validation or review fails:** use the private status page's findings. Do not
-  work around the correction contract by editing generated database files.
+- **Correction validation fails:** use the private status page's findings. Do
+  not work around the correction contract by editing generated database files.
 
 The normative policy is
 [section 9.1 of `CONTRIBUTING.md`](../CONTRIBUTING.md#91-exceptional-registry-metadata-corrections).
