@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://policy.palomar-registry.org/schemas/registry-correction.schema.json",
+  "title": "Palomar registry metadata correction decision",
+  "description": "The deterministic registration decision for a mechanically validated maintainer correction. It records no new editorial judgment: the exact active baseline review and scores are inherited.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "kind",
+    "submission_id",
+    "source",
+    "mechanical_report",
+    "policy_commit",
+    "decided_at",
+    "outcome",
+    "summary",
+    "based_on",
+    "changed_fields",
+    "inherited_review",
+    "inherited_scores"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "kind": { "const": "registry-metadata-correction" },
+    "submission_id": {
+      "type": "string",
+      "pattern": "^[0-9a-z]{12}$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit"],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+        },
+        "commit": { "$ref": "#/$defs/sha" }
+      }
+    },
+    "mechanical_report": { "type": "string", "format": "uri" },
+    "policy_commit": { "$ref": "#/$defs/sha" },
+    "decided_at": { "type": "string", "format": "date-time" },
+    "outcome": { "const": "neutral" },
+    "summary": { "type": "string", "minLength": 1 },
+    "based_on": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "path", "sha256"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^PALOMAR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{6}$"
+        },
+        "version": { "type": "integer", "minimum": 1 },
+        "path": {
+          "type": "string",
+          "pattern": "^entries/PALOMAR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{6}-v[1-9][0-9]*\\.json$"
+        },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "changed_fields": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "title",
+          "abstract",
+          "authors",
+          "classification.arxiv",
+          "classification.msc2020",
+          "provenance.responsible_maintainers",
+          "provenance.mathematical_sources",
+          "provenance.related_formalizations"
+        ]
+      }
+    },
+    "inherited_review": { "$ref": "#/$defs/registeredReview" },
+    "inherited_scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^scores/PALOMAR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{6}-v[1-9][0-9]*\\.json$"
+        },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    }
+  },
+  "$defs": {
+    "sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "registeredReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewed_at",
+        "policy_commit",
+        "outcome",
+        "reviewer_models",
+        "warnings",
+        "report"
+      ],
+      "properties": {
+        "reviewed_at": { "$ref": "#/$defs/timestamp" },
+        "policy_commit": { "$ref": "#/$defs/sha" },
+        "outcome": { "const": "neutral" },
+        "reviewer_models": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "warnings": {
+          "type": "array",
+          "maxItems": 100,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "report": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sha256"],
+          "properties": {
+            "sha256": { "$ref": "#/$defs/sha256" },
+            "source_url": { "type": "string", "format": "uri" }
+          }
+        }
+      }
+    }
+  }
+}
