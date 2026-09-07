@@ -1,7 +1,8 @@
 # Cloudflare account-separation runbook
 
-This runbook moves project resources out of the personal Cloudflare account
-`d789bf36d237e0cb313be59b927c82bd`. The final ownership map is:
+This runbook records the completed 2026 migration of project resources out of
+the personal Cloudflare account `d789bf36d237e0cb313be59b927c82bd`.
+The live ownership map is:
 
 | Project | Destination account |
 | --- | --- |
@@ -9,9 +10,36 @@ This runbook moves project resources out of the personal Cloudflare account
 | Palomar | `8e4d5f3bbdd2c4ab2b373721842acf9f` |
 | TauCeti | `ec2169bdf033f56b009956d4b64ba8ef` |
 
-The personal account is empty at completion. `lean-eval`
-(`a46b90978a1c29cc4795f30677e7e4b8`) is already correctly separated and is a
-verification-only target for this migration.
+`lean-eval` (`a46b90978a1c29cc4795f30677e7e4b8`) was already correctly
+separated and was a verification-only target for this migration.
+
+## Completion record
+
+The cutover completed on 2026-08-23. The personal account has no active R2
+buckets, Worker scripts, Worker routes or custom domains, D1 databases, or KV
+namespaces. Cloudflare retains the old Palomar and TauCeti zones there with
+status `moved`; those are historical records, not active resources, and must
+not be recreated or deleted merely because they remain visible.
+
+- Hex's `hex-cache` bucket and publisher credential are in the `hex` account.
+  Anonymous reads and authenticated publication both passed after cutover, and
+  the source bucket was deleted.
+- TauCeti's `tauceti-cache` bucket, `taucetiproject.org` zone, and
+  `cache.taucetiproject.org` custom domain are in the `tauceti` account.
+  Anonymous reads, edge caching, and the isolated publisher passed after
+  cutover, and the source bucket was deleted.
+- Palomar's two zones, four Workers, `palomar-public-data` and
+  `palomar-public-data-staging` buckets, redirect rules, and Email Routing are
+  in the `palomar` account. The old four Workers and two buckets were deleted
+  only after a full publication write/read-back and atomic activation passed.
+  A subsequent organic submission exercised intake, GitHub dispatch and
+  callback credentials, state writes, verification, rendering, and review.
+
+All affected GitHub variables, endpoints, and secrets target the dedicated
+accounts. The broad bootstrap and token-creation credentials were revoked;
+the surviving deployment and publisher credentials are account-owned and
+least-privilege. Secret values and machine-local recovery locations are not
+recorded in this repository.
 
 ## Preconditions
 

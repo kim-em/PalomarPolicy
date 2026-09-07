@@ -1,6 +1,6 @@
 # Palomar infrastructure
 
-Last reconciled against the live services on 2026-08-23.
+Last reconciled against the live services on 2026-09-07.
 
 This is the durable record of where Palomar runs, so that changing a host or
 credential is a checklist rather than an excavation. The private canonical
@@ -21,11 +21,14 @@ restore a direct raw-GitHub or GitHub Pages fallback for database data.
 | Website hosting | GitHub Pages, repository `PalomarWeb` | The website is static; its registry content is fetched at runtime from the public data Worker. |
 | Public registry storage | Private R2 bucket `palomar-public-data` | Contains the generated, active-only projection: records at keys that never change, and the aggregates under the release that wrote them. The bucket itself is not public. |
 
-The older personal account `d789bf36d237e0cb313be59b927c82bd` is only a
-temporary source during the 2026 account separation. It is not an acceptable
-deployment target. R2 must first be enabled in the dedicated account; resources
-may remain in the old account until the copy, verification, route transfer and
-credential rotation are complete.
+The 2026 account separation is complete. The older personal account
+`d789bf36d237e0cb313be59b927c82bd` is not an acceptable deployment target and
+contains no active Palomar, TauCeti, or Hex Workers or buckets. Cloudflare still
+shows the former Palomar and TauCeti zones there with status `moved`; their
+active zones and authoritative resources are in the dedicated accounts. Treat
+the source entries as historical records, not resources to recreate or delete.
+The completed procedure and acceptance record are in
+[`cloudflare-account-migration.md`](cloudflare-account-migration.md).
 
 The old `kim-em/Palomar*` repository names must stay reserved forever.
 Recreating a repository at an old name destroys that name's GitHub redirect.
